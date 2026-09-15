@@ -1,0 +1,34 @@
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import registerUserRoutes from "./src/routes/registerUserRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import productRoutes from "./src/routes/productRoutes.js";
+import batchRoutes from "./src/routes/batchRoutes.js";
+import movementRoutes from "./src/routes/movementRoutes.js";
+import alertRoutes from "./src/routes/alertRoutes.js";
+import reportRoutes from "./src/routes/reportRoutes.js";
+
+
+const app = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  }),
+);
+
+app.use(cookieParser());
+
+app.use(express.json());
+
+app.use("/api/users", registerUserRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/batches", batchRoutes);
+app.use("/api/movements", movementRoutes);
+app.use("/api/alerts", alertRoutes);
+app.use("/api/reports", reportRoutes);
+
+export default app
