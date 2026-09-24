@@ -6,5 +6,7 @@ const router = Router();
 
 router.post("/login", userController.login);
 router.post("/logout", authMiddleware.validateAuthToken, userController.logout);
+router.get("/me", authMiddleware.validateAuthToken, userController.getSession);
+router.put("/me", authMiddleware.validateAuthToken, userController.updateProfile);
 
 export default router;

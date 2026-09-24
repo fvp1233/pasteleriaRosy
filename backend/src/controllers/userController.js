@@ -66,12 +66,75 @@ userController.login = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 dia
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
     });
 
     //#10 responder al cliente con los datos del usuario
     return res.status(200).json({
       message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        last_name: user.last_name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.log("error" + error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+userController.getSession = async (req, res) => {
+  try {
+    //#1 buscar el usuario autenticado por el id del token
+    const user = await userModel.findById(req.user.id).select("-password");
+
+    //#2 validar que el usuario exista y siga activo
+    if (!user || !user.is_active) {
+      return res.status(401).json({ message: "Session invalid" });
+    }
+
+    //#3 responder al cliente con los datos del usuario
+    return res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        last_name: user.last_name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.log("error" + error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+userController.updateProfile = async (req, res) => {
+  try {
+    //#1 solicitar los datos a actualizar (solo nombre y apellido son editables)
+    const { name, last_name } = req.body;
+
+    if (!name?.trim() || !last_name?.trim()) {
+      return res.status(400).json({ message: "Name and last name are required" });
+    }
+
+    //#2 buscar al usuario autenticado por el id del token
+    const user = await userModel.findById(req.user.id);
+    if (!user || !user.is_active) {
+      return res.status(401).json({ message: "Session invalid" });
+    }
+
+    //#3 actualizar los campos permitidos
+    user.name = name.trim();
+    user.last_name = last_name.trim();
+    await user.save();
+
+    //#4 responder al cliente con los datos actualizados
+    return res.status(200).json({
+      message: "Profile updated successfully",
       user: {
         id: user._id,
         name: user.name,

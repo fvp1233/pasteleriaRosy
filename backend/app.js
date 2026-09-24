@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import registerUserRoutes from "./src/routes/registerUserRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import recoveryPasswordRoutes from "./src/routes/recoveryPasswordRoutes.js";
 import productRoutes from "./src/routes/productRoutes.js";
 import batchRoutes from "./src/routes/batchRoutes.js";
 import movementRoutes from "./src/routes/movementRoutes.js";
@@ -25,6 +26,7 @@ app.use(express.json());
 
 app.use("/api/users", registerUserRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/users/recovery", recoveryPasswordRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/batches", batchRoutes);
 app.use("/api/movements", movementRoutes);
