@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174","https://vercel.com/fvp1233s-projects/pasteleria-rosy/BQk1jKKSaHapE6nBTvMPKzAkZF1K" , "https://pasteleria-rosy.vercel.app/"],
+    origin: ["http://localhost:5173", "http://localhost:5174", "https://pasteleria-rosy.vercel.app"],
     credentials: true,
   }),
 );
