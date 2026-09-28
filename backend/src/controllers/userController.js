@@ -2,6 +2,7 @@ import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import userModel from "../models/User.js";
 import { config } from "../../config.js";
+import { cookieSecurity } from "../lib/cookieOptions.js";
 
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME = 15 * 60 * 1000; // 15 minutos
@@ -64,8 +65,7 @@ userController.login = async (req, res) => {
     //#9 enviar el token en una cookie httpOnly
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      ...cookieSecurity,
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
     });
 
@@ -152,7 +152,7 @@ userController.updateProfile = async (req, res) => {
 userController.logout = async (req, res) => {
   try {
     //#1 limpiar la cookie del token
-    res.clearCookie("authToken");
+    res.clearCookie("authToken", cookieSecurity);
 
     //#2 responder al cliente
     return res.status(200).json({ message: "Logout successful" });

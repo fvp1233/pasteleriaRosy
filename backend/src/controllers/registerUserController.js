@@ -5,6 +5,7 @@ import userModel from "../models/User.js";
 import { config } from "../../config.js";
 import { buildVerificationEmailHtml } from "../emails/verificationEmail.js";
 import { sendEmail } from "../emails/mailer.js";
+import { cookieSecurity } from "../lib/cookieOptions.js";
 
 const PENDING_REGISTRATION_TOKEN_PURPOSE = "pending-registration";
 const PENDING_REGISTRATION_COOKIE = "pendingRegistrationToken";
@@ -35,8 +36,7 @@ async function issuePendingRegistration(res, { name, last_name, email, role, has
 
   res.cookie(PENDING_REGISTRATION_COOKIE, pendingToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    ...cookieSecurity,
     maxAge: 15 * 60 * 1000, // 15 minutos
   });
 
@@ -161,7 +161,7 @@ registerUserController.verifyEmail = async (req, res) => {
     await newUser.save();
 
     //#7 limpiar la cookie del registro pendiente
-    res.clearCookie(PENDING_REGISTRATION_COOKIE);
+    res.clearCookie(PENDING_REGISTRATION_COOKIE, cookieSecurity);
 
     //#8 responder al cliente
     return res.status(200).json({ message: "Account verified successfully" });

@@ -5,6 +5,7 @@ import userModel from "../models/User.js";
 import { config } from "../../config.js";
 import { buildPasswordRecoveryEmailHtml } from "../emails/passwordRecoveryEmail.js";
 import { sendEmail } from "../emails/mailer.js";
+import { cookieSecurity } from "../lib/cookieOptions.js";
 
 const PASSWORD_RECOVERY_TOKEN_PURPOSE = "password-recovery";
 const PASSWORD_RECOVERY_COOKIE = "passwordRecoveryToken";
@@ -44,8 +45,7 @@ recoveryPasswordController.requestCode = async (req, res) => {
     //#6 guardar el token en una cookie httpOnly (no en el body, no en la base de datos)
     res.cookie(PASSWORD_RECOVERY_COOKIE, token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      ...cookieSecurity,
       maxAge: 15 * 60 * 1000, // 15 minutos
     });
 
@@ -107,8 +107,7 @@ recoveryPasswordController.verifyCode = async (req, res) => {
 
     res.cookie(PASSWORD_RECOVERY_COOKIE, verifiedToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      ...cookieSecurity,
       maxAge: 15 * 60 * 1000,
     });
 
@@ -159,7 +158,7 @@ recoveryPasswordController.newPassword = async (req, res) => {
     }
 
     //#6 limpiar la cookie de recuperacion
-    res.clearCookie(PASSWORD_RECOVERY_COOKIE);
+    res.clearCookie(PASSWORD_RECOVERY_COOKIE, cookieSecurity);
 
     return res.status(200).json({ message: "Password updated" });
   } catch (error) {
