@@ -38,7 +38,7 @@ export function ValuationReportPage() {
   return (
     <div className="flex flex-col gap-4">
       <Select value={productFilter} onValueChange={setProductFilter}>
-        <SelectTrigger className="w-64">
+        <SelectTrigger className="w-full sm:w-64">
           <SelectValue placeholder="Todos los productos" />
         </SelectTrigger>
         <SelectContent>

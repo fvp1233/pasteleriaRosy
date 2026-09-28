@@ -105,7 +105,7 @@ export function VerifyEmailPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-muted/30 px-4 py-10">
-      <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-sm">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8">
         <div className="flex flex-col items-center gap-2 text-center">
           <div className="relative mb-2">
             <div className="flex size-16 items-center justify-center rounded-2xl bg-brand-primary/10">

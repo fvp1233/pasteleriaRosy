@@ -1,12 +1,11 @@
 import crypto from "crypto";
 import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
-import { Resend } from "resend";
 import userModel from "../models/User.js";
 import { config } from "../../config.js";
 import { buildVerificationEmailHtml } from "../emails/verificationEmail.js";
+import { sendEmail } from "../emails/mailer.js";
 
-const resend = new Resend(config.email.apiKey);
 const PENDING_REGISTRATION_TOKEN_PURPOSE = "pending-registration";
 const PENDING_REGISTRATION_COOKIE = "pendingRegistrationToken";
 
@@ -41,8 +40,7 @@ async function issuePendingRegistration(res, { name, last_name, email, role, has
     maxAge: 15 * 60 * 1000, // 15 minutos
   });
 
-  await resend.emails.send({
-    from: "Rosy Pasteles <onboarding@resend.dev>",
+  await sendEmail({
     to: email,
     subject: "Verifica tu cuenta - Rosy Pasteles",
     html: buildVerificationEmailHtml({ name, verificationCode, expiresAt }),

@@ -70,7 +70,7 @@ export function MonthlyClosingReportPage() {
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="month">Mes *</Label>
           <Select value={month} onValueChange={setMonth}>
-            <SelectTrigger id="month" className="w-40">
+            <SelectTrigger id="month" className="w-full sm:w-40">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -85,7 +85,7 @@ export function MonthlyClosingReportPage() {
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="product">Producto</Label>
           <Select value={productId} onValueChange={setProductId}>
-            <SelectTrigger id="product" className="w-64">
+            <SelectTrigger id="product" className="w-full sm:w-64">
               <SelectValue placeholder="Todos los productos" />
             </SelectTrigger>
             <SelectContent>

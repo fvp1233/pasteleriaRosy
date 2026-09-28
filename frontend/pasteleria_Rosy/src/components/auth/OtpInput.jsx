@@ -48,7 +48,7 @@ export function OtpInput({ length = 6, value, onChange, disabled, error }) {
   }
 
   return (
-    <div className="flex justify-center gap-2.5">
+    <div className="flex justify-center gap-1.5 sm:gap-2.5">
       {digits.map((digit, index) => (
         <input
           key={index}
@@ -64,7 +64,7 @@ export function OtpInput({ length = 6, value, onChange, disabled, error }) {
           onFocus={(event) => event.target.select()}
           aria-label={`Dígito ${index + 1} del código`}
           className={cn(
-            "size-12 rounded-lg border bg-transparent text-center text-lg font-semibold text-foreground outline-none transition-colors",
+            "size-10 rounded-lg border bg-transparent text-center text-lg font-semibold text-foreground outline-none transition-colors sm:size-12",
             "focus-visible:border-brand-primary focus-visible:ring-3 focus-visible:ring-brand-primary/25",
             digit ? "border-brand-primary/40" : "border-input",
             error && "border-destructive",

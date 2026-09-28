@@ -8,7 +8,8 @@ export const config = {
         expiresIn: "30d"
     },
     email:{
-        apiKey: process.env.EMAIL_API_KEY
+        apiKey: process.env.EMAIL_API_KEY,
+        fromAddress: process.env.EMAIL_FROM
     },
     db: {
         uri: process.env.DB_URI

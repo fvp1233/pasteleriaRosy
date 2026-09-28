@@ -95,7 +95,7 @@ export function BatchesListPage() {
 
       <div className="flex flex-wrap items-center gap-4">
         <Select value={productFilter} onValueChange={setProductFilter}>
-          <SelectTrigger className="w-64">
+          <SelectTrigger className="w-full sm:w-64">
             <SelectValue placeholder="Todos los productos" />
           </SelectTrigger>
           <SelectContent>
@@ -109,7 +109,7 @@ export function BatchesListPage() {
         </Select>
 
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder="Todos los estados" />
           </SelectTrigger>
           <SelectContent>

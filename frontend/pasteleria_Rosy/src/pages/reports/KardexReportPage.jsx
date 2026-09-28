@@ -60,7 +60,7 @@ export function KardexReportPage() {
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="kardex-product">Producto *</Label>
           <Select value={productId || null} onValueChange={setProductId}>
-            <SelectTrigger id="kardex-product" className="w-64">
+            <SelectTrigger id="kardex-product" className="w-full sm:w-64">
               <SelectValue placeholder="Selecciona un producto" />
             </SelectTrigger>
             <SelectContent>

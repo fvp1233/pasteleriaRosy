@@ -138,7 +138,7 @@ export function RegisterPage() {
         ) : null}
 
         <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="name">Nombre *</Label>
               <Input
@@ -186,7 +186,7 @@ export function RegisterPage() {
 
           <div className="flex flex-col gap-1.5">
             <Label>Rol inicial solicitado *</Label>
-            <div role="radiogroup" className="grid grid-cols-2 gap-4">
+            <div role="radiogroup" className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {ROLES.map((role) => (
                 <RoleOptionCard
                   key={role.value}
@@ -201,7 +201,7 @@ export function RegisterPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <PasswordInput
               id="password"
               label="Contraseña *"

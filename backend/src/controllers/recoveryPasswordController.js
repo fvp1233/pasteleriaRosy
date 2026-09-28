@@ -1,12 +1,11 @@
 import crypto from "crypto";
 import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
-import { Resend } from "resend";
 import userModel from "../models/User.js";
 import { config } from "../../config.js";
 import { buildPasswordRecoveryEmailHtml } from "../emails/passwordRecoveryEmail.js";
+import { sendEmail } from "../emails/mailer.js";
 
-const resend = new Resend(config.email.apiKey);
 const PASSWORD_RECOVERY_TOKEN_PURPOSE = "password-recovery";
 const PASSWORD_RECOVERY_COOKIE = "passwordRecoveryToken";
 
@@ -50,9 +49,8 @@ recoveryPasswordController.requestCode = async (req, res) => {
       maxAge: 15 * 60 * 1000, // 15 minutos
     });
 
-    //#7 enviar el correo de recuperacion con Resend
-    await resend.emails.send({
-      from: "Rosy Pasteles <onboarding@resend.dev>",
+    //#7 enviar el correo de recuperacion
+    await sendEmail({
       to: email,
       subject: "Recuperación de contraseña - Rosy Pasteles",
       html: buildPasswordRecoveryEmailHtml({ name: userFound.name, verificationCode, expiresAt }),

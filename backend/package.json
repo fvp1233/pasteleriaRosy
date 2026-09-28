@@ -15,6 +15,7 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -23,7 +24,6 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.6.0",
-    "mongoose": "^9.10.1",
-    "resend": "^6.28.0"
+    "mongoose": "^9.10.1"
   }
 }

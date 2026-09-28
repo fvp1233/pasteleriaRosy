@@ -89,7 +89,7 @@ export function ProductsListPage() {
 
       <div className="flex flex-wrap items-center gap-4">
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-56">
+          <SelectTrigger className="w-full sm:w-56">
             <SelectValue placeholder="Todos los tipos" />
           </SelectTrigger>
           <SelectContent>
